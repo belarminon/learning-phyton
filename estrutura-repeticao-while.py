@@ -12,3 +12,17 @@ while opcao != 0:
         print("implementar a function para sair")
     else:
         print("Opção inválida")
+
+# while with break and continue
+
+while True:
+
+    number = int(input("number: "))
+
+    if number == 10:
+        break
+
+    if number % 2 == 0:
+        continue
+
+    print(number)
