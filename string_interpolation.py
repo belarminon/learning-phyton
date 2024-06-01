@@ -14,3 +14,12 @@ print("Hello, I'm {}, I'm {} years old, I work as {} and my hard skill is {}." .
 print("Hello, I'm {2}, I'm {0} years old, I work as {3} and my hard skill is {1}." .format(age, language, name, profission))
 print("Hello, I'm {name}, I'm {age} years old, I work as {profission} and my hard skill is {language}." .format(age = age, language = language, name = name, profission = profission))
 print()
+
+# f-string
+print("f-string method")
+print(f"Hello, I'm {name}, I'm {age} years old, I work as {profission} and my hard skill is {language}.")
+
+PI = 3.14159
+
+print(f"Valor de PI: {PI:.2f}")
+print(f"Valor de PI: {PI:10.2f}")
