@@ -11,26 +11,23 @@ def add_change(description):
 def get_changes():
     return changes    
 
-def withdraw(valor, saldo, limite):
+def withdraw(valor, saldo):
 
     if saldo >= valor: #don't permit negative valoues
             
-        if limite >= valor: # don't permit valor bigger than 500.00
-                
-            saldo -= valor
-            add_change(f"Saque: R$ {valor:.2f} Saldo: R$ {saldo:.2f}")
-            print(f'''
-                Saque de R$ {valor:.2f} realizado com sucesso.
-                Saldo atual: R$ {saldo:.2f}.
-            ''')
-
-            return saldo
-
-        else:
-            print(f"Não é permitido sacar valor maior que R$ {limite:.2f}.")
+        saldo -= valor
+        add_change(f"Saque: R$ {valor:.2f} Saldo: R$ {saldo:.2f}")
+        print(f'''
+            Saque de R$ {valor:.2f} realizado com sucesso.
+            Saldo atual: R$ {saldo:.2f}.
+        ''')
+        return saldo
 
     else: 
-        print("Não será possivel sacar o dinheiro por falta de saldo. Saldo atual R$ {saldo:.2f}.")
+        print('''
+            Não será possivel sacar o dinheiro por falta de saldo. 
+            Saldo atual R$ {saldo:.2f}.
+        ''')
         return saldo
 
 def deposit(valor, saldo):
@@ -88,7 +85,16 @@ while True:
 
                 print("Voce entrou na opção de Saque.")  
                 saque = float(input("Qual valor deseja sacar: R$ "))
-                saldo = withdraw(saque, saldo, limite)
+
+                if limite >= saque: # don't permit valor bigger than 500.00
+                    saldo = withdraw(saque, saldo)  
+                else:
+                    numero_saque -= 1
+                    add_change(f"Saque não permitido: R$ {saque:.2f} Permitido máximo: R$ {limite:.2f}")
+                    print(f'''
+                        Não é permitido sacar valor maior que R$ {limite:.2f}.
+                        Saldo atual: R$ {saldo:.2f}.
+                    ''')
 
                 print(f"O limite restante de saque é: {LIMITE_MAX_SAQUE - numero_saque}.")
 
