@@ -14,7 +14,7 @@ def get_changes():
 def withdraw(valor, saldo):
     if saldo >= valor:
         saldo -= saque
-        add_change(f"Saque: {saque:.2f} Saldo: {saldo:.2f}")
+        add_change(f"Saque: R$ {saque:.2f} Saldo: R$ {saldo:.2f}")
         print(f'''
             Saque de R$ {valor:.2f} realizado com sucesso.
             Saldo atual: R$ {saldo:.2f}.
@@ -24,21 +24,22 @@ def withdraw(valor, saldo):
         print("Não será possivel sacar o dinheiro por falta de saldo. Saldo atual R$ {saldo:.2f}.")
         return saldo
 
-def deposit(valor = 0):
+def deposit(valor, saldo):
     if valor > 0:
-        valor += valor
+        saldo += valor
+        add_change(f"Deposito: R$ {valor:.2f} Saldo: R$ {saldo:.2f}")
         print(f'''
             Valor depositado: R$ {valor:.2f}.
-            O teu saldo é de R${valor:.2f}.
+            O teu saldo é de R${saldo:.2f}.
         ''') 
-        return valor
+        return saldo
     else:
         print(f"O valor R$ {valor:.2f} não é válido. Deposite um valor válido.")
 
 def account_statement():
+    extract = " Extrato Geral da Conta Corrente "
+    print(extract.center(100,"#"))
     if saldo > 0:
-        extract = " Extrato Geral da Conta Corrente "
-        print(extract.center(100,"#"))
         for extract in get_changes():
             print(extract)
         print(f"O saldo atual é: R$ {saldo:.2f}.")
@@ -62,8 +63,7 @@ while True:
    if opcao == 1:
         print("Voce entrou na opção de Deposito") 
         deposito = float(input("Qual valor desejas deposit: "))
-        saldo = deposit(deposito)
-        add_change(f"Deposito: {deposito:.2f} Saldo: {saldo:.2f}")
+        saldo = deposit(deposito, saldo)
         
    elif opcao == 2:
         if saldo > 0:
@@ -80,7 +80,6 @@ while True:
                     numero_saque_restante = LIMITE_MAX_SAQUE - numero_saque
                     if numero_saque_restante != 0:
                         print(f"O limite restante de saque é: {numero_saque_restante}.")
-                        # add_change(f"Saque: {saque:.2f} Saldo: {saldo:.2f}")
                     else:
                         print(f'''"
                             O limite máximo diário de {LIMITE_MAX_SAQUE} saques foi atingido.
