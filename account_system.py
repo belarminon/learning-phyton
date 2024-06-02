@@ -56,7 +56,8 @@ def account_statement():
     else:
         print("Conta Corrente sem saldo.")
     
-    print(_.center(100,"#"))
+    closing = " Fim do Extrato "
+    print(closing.center(100, "#"))
 
 menu = '''
     [1] - Depositar ( Deposit )
