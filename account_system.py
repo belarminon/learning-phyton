@@ -11,15 +11,24 @@ def add_change(description):
 def get_changes():
     return changes    
 
-def withdraw(valor, saldo):
-    if saldo >= valor:
-        saldo -= saque
-        add_change(f"Saque: R$ {saque:.2f} Saldo: R$ {saldo:.2f}")
-        print(f'''
-            Saque de R$ {valor:.2f} realizado com sucesso.
-            Saldo atual: R$ {saldo:.2f}.
-        ''')
-        return saldo
+def withdraw(valor, saldo, limite):
+
+    if saldo >= valor: #don't permit negative valoues
+            
+        if limite >= valor: # don't permit valor bigger than 500.00
+                
+            saldo -= valor
+            add_change(f"Saque: R$ {valor:.2f} Saldo: R$ {saldo:.2f}")
+            print(f'''
+                Saque de R$ {valor:.2f} realizado com sucesso.
+                Saldo atual: R$ {saldo:.2f}.
+            ''')
+
+            return saldo
+
+        else:
+            print(f"Não é permitido sacar valor maior que R$ {limite:.2f}.")
+
     else: 
         print("Não será possivel sacar o dinheiro por falta de saldo. Saldo atual R$ {saldo:.2f}.")
         return saldo
@@ -30,13 +39,14 @@ def deposit(valor, saldo):
         add_change(f"Deposito: R$ {valor:.2f} Saldo: R$ {saldo:.2f}")
         print(f'''
             Valor depositado: R$ {valor:.2f}.
-            O teu saldo é de R${saldo:.2f}.
+            Saldo atual: R$ {saldo:.2f}.
         ''') 
         return saldo
     else:
         print(f"O valor R$ {valor:.2f} não é válido. Deposite um valor válido.")
 
 def account_statement():
+    print()
     extract = " Extrato Geral da Conta Corrente "
     print(extract.center(100,"#"))
     if saldo > 0:
@@ -45,6 +55,8 @@ def account_statement():
         print(f"O saldo atual é: R$ {saldo:.2f}.")
     else:
         print("Conta Corrente sem saldo.")
+    
+    print(_.center(100,"#"))
 
 menu = '''
     [1] - Depositar ( Deposit )
@@ -66,28 +78,18 @@ while True:
         saldo = deposit(deposito, saldo)
         
    elif opcao == 2:
+        
         if saldo > 0:
-            if numero_saque <= LIMITE_MAX_SAQUE:
+
+            if numero_saque is not LIMITE_MAX_SAQUE:
+
+                numero_saque += 1
 
                 print("Voce entrou na opção de Saque.")  
                 saque = float(input("Qual valor deseja sacar: R$ "))
+                saldo = withdraw(saque, saldo, limite)
 
-                if limite >= saque or LIMITE_MAX_SAQUE is not numero_saque:
-
-                    numero_saque += 1
-                    saldo = withdraw(saque, saldo)
-
-                    numero_saque_restante = LIMITE_MAX_SAQUE - numero_saque
-                    if numero_saque_restante != 0:
-                        print(f"O limite restante de saque é: {numero_saque_restante}.")
-                    else:
-                        print(f'''"
-                            O limite máximo diário de {LIMITE_MAX_SAQUE} saques foi atingido.
-                            Tente novamente amanhã.
-                        ''')
-
-                else:
-                    print(f"Não é permitido sacar valor maior que R$ {limite:.2f}.")
+                print(f"O limite restante de saque é: {LIMITE_MAX_SAQUE - numero_saque}.")
 
             else:
                 print(f"O limite de {LIMITE_MAX_SAQUE} saques diarios foi alcançado.")
