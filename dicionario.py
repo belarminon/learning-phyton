@@ -10,7 +10,7 @@ print(person)
 person["phone"] = "(12) 98845-0080"
 print(person)
 
-# define database and access key to display values
+# define dictionary and access key to display values
 data = dict(name="Belarmino", age=43, phone="(12) 98845-0080")
 
 print(data["name"])
