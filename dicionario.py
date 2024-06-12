@@ -9,3 +9,19 @@ print(person)
 #add ney key "phone"
 person["phone"] = "(12) 98845-0080"
 print(person)
+
+# define database and access key to display values
+data = dict(name="Belarmino", age=43, phone="(12) 98845-0080")
+
+print(data["name"])
+print(data["age"])
+print(data["phone"])
+
+# Accessing key and change its value 
+data["name"] = "Belarmino Nicolau"
+data["age"] = 44
+data["phone"] = "(11) 91111-1111)"
+
+print(data["name"])
+print(data["age"])
+print(data["phone"])
