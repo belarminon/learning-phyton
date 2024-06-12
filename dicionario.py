@@ -1,0 +1,1 @@
+# Umio dicionario é um conjunto não-ordernado de pares chave:valor, onde as chaves são unicas em uma dada instancia do dicionário. Dicionário são limitados por chaves: {}, e contém uma lista de pares chave:valor separada por vírgulas.
